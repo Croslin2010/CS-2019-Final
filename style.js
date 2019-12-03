@@ -33,6 +33,9 @@ var DataPromise = d3.csv("CompiledData.csv")
 DataPromise.then(
 function(Data)
     {
+        d3.csv("CompiledData.csv", function(data){
+            console.log(data);
+        })
         createGraph("CompiledData.csv");
     },
     function()
