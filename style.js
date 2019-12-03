@@ -1,32 +1,42 @@
-var createGraph = function("HappinessData","LifeExpectancy","SuicideData","WorkingHours")
+var createGraph = function(Data)
 {
-    var w = 500;
+    var w = 1000;
     var h = 500;
     
     d3.select("body")
-    .selectAll("svg")
-    .enter()
     .append("svg")
     .attr("height",h)
     .attr("width",w)
-    .attr("y",function(d){
-        return h - d;
-    })
-    .attr("height", function(d){
-        return d;
-    })
-    
-    var xAxis = d3.axisBottom()
-    
-    
+
     d3.select("svg")
-    .selectAll('g')
-    .append("g")
-    .call(xAxis)
-    .attr()
+    .selectAll("circle")
+    .data(Data)
+    .enter()
+    .append("circle")
+    .attr("x",function(D)
+          {return D.working_Hours})
+    .attr("y",Data.Happiness_Score)
+    .attr("r",5)
+    
+
+    
+    
+
     
 }
 
-//promise all like in notes
 
-createGraph(2015.csv, life_expectancy_years.csv, suicide_per_100000_people.csv, working_hours_per_week.csv)
+
+
+
+var DataPromise = d3.csv("CompiledData.csv")
+DataPromise.then(
+function(Data)
+    {
+        createGraph("CompiledData.csv");
+    },
+    function()
+    {
+        console.log("Not Finding Data")
+    }
+)
